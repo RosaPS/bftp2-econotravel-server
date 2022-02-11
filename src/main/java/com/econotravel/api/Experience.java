@@ -27,9 +27,14 @@ public class Experience implements Serializable{
     public Experience() {
     }
 
-
-
-
+    public Experience(String name, String descripcion, double price, int time, String category, String imgUrl) {
+        this.name = name;
+        this.descripcion = descripcion;
+        this.price = price;
+        this.time = time;
+        this.category = category;
+        this.imgUrl = imgUrl;
+    }
 
     public Long getId() {
         return id;
@@ -87,16 +92,6 @@ public class Experience implements Serializable{
     }
 
     public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
-    }
-
-
-    public Experience(String name, String descripcion, double price, int time, String category, String imgUrl) {
-        this.name = name;
-        this.descripcion = descripcion;
-        this.price = price;
-        this.time = time;
-        this.category = category;
         this.imgUrl = imgUrl;
     }
 
