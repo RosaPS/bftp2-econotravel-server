@@ -18,13 +18,13 @@ public class ExperienceController {
         this.experienceRepository = experienceRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public List<Experience> allExperiences() {
 
         return experienceRepository.findAll();
     }
 
-    @PostMapping("/experiences")
+    @PostMapping
     public Experience createExperience(@RequestBody Experience experience) {
         return experienceRepository.save(experience);
     }
