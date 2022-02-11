@@ -15,6 +15,9 @@ public class Experience implements Serializable{
     private String name;
 
     @Lob
+    private String descripcionCorta;
+
+    @Lob
     private String descripcion;
 
     private double price;
@@ -27,8 +30,15 @@ public class Experience implements Serializable{
     public Experience() {
     }
 
-
-
+    public Experience(String name, String descripcionCorta, String descripcion, double price, int time, String category, String imgUrl) {
+        this.name = name;
+        this.descripcionCorta = descripcionCorta;
+        this.descripcion = descripcion;
+        this.price = price;
+        this.time = time;
+        this.category = category;
+        this.imgUrl = imgUrl;
+    }
 
 
     public Long getId() {
@@ -45,6 +55,14 @@ public class Experience implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDescripcionCorta() {
+        return descripcionCorta;
+    }
+
+    public void setDescripcionCorta(String descripcionCorta) {
+        this.descripcion = descripcionCorta;
     }
 
 
@@ -91,22 +109,12 @@ public class Experience implements Serializable{
     }
 
 
-    public Experience(String name, String descripcion, double price, int time, String category, String imgUrl) {
-        this.name = name;
-        this.descripcion = descripcion;
-        this.price = price;
-        this.time = time;
-        this.category = category;
-        this.imgUrl = imgUrl;
-    }
-
-
-
     @Override
     public String toString() {
         return "Experience{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", descripcionCorta='" + descripcionCorta + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", price=" + price +
                 ", time=" + time +
@@ -120,12 +128,12 @@ public class Experience implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Experience experience = (Experience) o;
-        return Double.compare(experience.price, price) == 0 && Objects.equals(id, experience.id) && Objects.equals(name, experience.name) && Objects.equals(descripcion, experience.descripcion) && Objects.equals(category, experience.category) && Objects.equals(time, experience.time) && Objects.equals(imgUrl, experience.imgUrl);
+        return Double.compare(experience.price, price) == 0 && Objects.equals(id, experience.id) && Objects.equals(name, experience.name)  && Objects.equals(descripcionCorta, experience.descripcionCorta) && Objects.equals(descripcion, experience.descripcion) && Objects.equals(category, experience.category) && Objects.equals(time, experience.time) && Objects.equals(imgUrl, experience.imgUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, descripcion, category, time, price, imgUrl);
+        return Objects.hash(id, name, descripcionCorta, descripcion, category, time, price, imgUrl);
     }
 
 

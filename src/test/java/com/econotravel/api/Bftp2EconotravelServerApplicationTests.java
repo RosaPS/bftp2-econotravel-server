@@ -48,10 +48,20 @@ class Bftp2EconotravelServerApplicationTests {
 
     private void addSampleExperiences() {
         List<Experience> experiences = List.of(
-                new Experience("Paseo por el Montseny", "Disfruta de un hermoso paseo en bicicleta por el increíble Parque Natural del Montseny. Una escapada veraniega perfecta para parejas, familias y amigos que nos permitirá conocer nuevos y sorprendentes lugares. El recorrido que os proponemos comienza con una larga subida con algunos descansos, combinando asfalto y pistas anchas, culminando en un mirador con magníficas vistas del Vallés y el mar. Desde aquí continuaremos la bajada combinando senderos, pistas y algún tramo de carretera y terreno mixto para visitar la zona de Santa Fe, donde descubriremos la Ermita y el Bosque de las Secuoyas. Para finalizar, acudiremos al restaurante María Rosa de Palautordera, donde disfrutaremos de una excelente comida casera con butifarra blanca y negra y munxetes del Montseny.",250, 5, "Montaña, bicicleta, excursión larga.", "https://cdn2.civitatis.com/espana/viladrau/tour-bicicleta-electrica-parque-montseny-grid.jpg"),
+                new Experience("Paseo por el Montseny", "Disfruta de un hermoso paseo en bicicleta por el increíble Parque Natural del Montseny.", "Disfruta de un hermoso paseo en bicicleta por el increíble Parque Natural del Montseny. Una escapada veraniega perfecta para parejas, " +
+                        "familias y amigos que nos permitirá conocer nuevos y sorprendentes lugares. El recorrido que os proponemos comienza con una larga subida con algunos descansos, combinando " +
+                        "asfalto y pistas anchas, culminando en un mirador con magníficas vistas del Vallés y el mar. Desde aquí continuaremos la bajada combinando senderos, pistas y algún tramo de carretera " +
+                        "y terreno mixto para visitar la zona de Santa Fe, donde descubriremos la Ermita y el Bosque de las Secuoyas. Para finalizar, acudiremos al restaurante María Rosa de Palautordera, donde disfrutaremos " +
+                        "de una excelente comida casera con butifarra blanca y negra y munxetes del Montseny.",250, 5,
+                        "Montaña, bicicleta, excursión larga.", "https://cdn2.civitatis.com/espana/viladrau/tour-bicicleta-electrica-parque-montseny-grid.jpg"),
 
-                new Experience("Descubre la Barcelona Modernista de noche", "Desplazarse a pie es una de las mejores formas de descubrir las maravillas modernistas que se esconden en el barcelonés distrito del Eixample, ubicado en el centro de la ciudad. En esta excursión de cuatro horas, descubriremos los principales emblemas del modernismo y visitaremos los templos y edificios más célebres del arquitecto Gaudí. \n" +
-                        "El tour incluye visita guiada al interior de la Casa Batlló y la Sagrada Familia, así como parada para cenar en el restaurante típico catalán Can Masiá, donde disfrutaremos de las mejores carnes de la región acompañadas de vinos de las tierras del Baix Empordá. El restaurante también ofrece opciones vegetarianas y veganas así como menú para niños. Cava aparte. \n",200, 4, "Ciudad, a pie, excursión larga", "https://media.tacdn.com/media/attractions-splice-spp-674x446/09/57/77/a3.jpg")
+                new Experience("Descubre la Barcelona Modernista de noche", "La mejor forma de descubrir las maravillas modernistas que se esconden en el barcelonés distrito del Eixample","Desplazarse a pie es una de las mejores formas de descubrir las maravillas modernistas que se esconden en el barcelonés distrito del Eixample, " +
+                        "ubicado en el centro de la ciudad. " +
+                        "En esta excursión de cuatro horas, descubriremos los principales emblemas del modernismo y visitaremos los templos y " +
+                        "edificios más célebres del arquitecto Gaudí. \n" +
+                        "El tour incluye visita guiada al interior de la Casa Batlló y la Sagrada Familia, así como parada para cenar en el restaurante típico " +
+                        "catalán Can Masiá, donde disfrutaremos de las mejores carnes de la región acompañadas de vinos de las tierras del Baix Empordá. El restaurante también ofrece opciones vegetarianas y veganas así como menú " +
+                        "para niños. Cava aparte. \n",200, 4, "Ciudad, a pie, excursión larga", "https://media.tacdn.com/media/attractions-splice-spp-674x446/09/57/77/a3.jpg")
         );
 
         experienceRepository.saveAll(experiences);
