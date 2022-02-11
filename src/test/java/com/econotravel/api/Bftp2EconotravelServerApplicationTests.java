@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
@@ -91,5 +92,17 @@ class Bftp2EconotravelServerApplicationTests {
                 hasProperty("categoria", equalTo("Montaña, bicileta, excursión larga"))
         )));
     }
+
+    @Test
+    void allowsToDeleteAExperience() throws Exception {
+            Experience experience = experienceRepository.save(new Experience());
+            mockMvc.perform(get("/experiences/delete/" + experience.getId()))
+                    .andExpect(status().is3xxRedirection())
+                    .andExpect(redirectedUrl("/experiences"));
+
+            assertThat(experienceRepository.findById(experience.getId()), equalTo(Optional.empty()));
+        }
+    }
+
 
 }
