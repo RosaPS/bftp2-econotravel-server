@@ -30,14 +30,16 @@ public class Experience implements Serializable{
     public Experience() {
     }
 
-    public Experience(String name, String descripcion, double price, int time, String category, String imgUrl) {
+    public Experience(String name, String descripcionCorta, String descripcion, double price, int time, String category, String imgUrl) {
         this.name = name;
+        this.descripcionCorta = descripcionCorta;
         this.descripcion = descripcion;
         this.price = price;
         this.time = time;
         this.category = category;
         this.imgUrl = imgUrl;
     }
+
 
     public Long getId() {
         return id;
@@ -106,21 +108,6 @@ public class Experience implements Serializable{
         this.imgUrl = imgUrl;
     }
 
-
-<<<<<<< HEAD
-=======
-    public Experience(String name, String descripcionCorta, String descripcion, double price, int time, String category, String imgUrl) {
-        this.name = name;
-        this.descripcionCorta = descripcionCorta;
-        this.descripcion = descripcion;
-        this.price = price;
-        this.time = time;
-        this.category = category;
-        this.imgUrl = imgUrl;
-    }
-
-
->>>>>>> d17dbdc020ad430712c2f0c358b82bef27e15dd3
 
     @Override
     public String toString() {
