@@ -15,6 +15,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -52,17 +54,17 @@ class Bftp2EconotravelServerApplicationTests {
                         "familias y amigos que nos permitirá conocer nuevos y sorprendentes lugares. El recorrido que os proponemos comienza con una larga subida con algunos descansos, combinando " +
                         "asfalto y pistas anchas, culminando en un mirador con magníficas vistas del Vallés y el mar. Desde aquí continuaremos la bajada combinando senderos, pistas y algún tramo de carretera " +
                         "y terreno mixto para visitar la zona de Santa Fe, donde descubriremos la Ermita y el Bosque de las Secuoyas. Para finalizar, acudiremos al restaurante María Rosa de Palautordera, donde disfrutaremos " +
-                        "de una excelente comida casera con butifarra blanca y negra y munxetes del Montseny.",250, 5,
+                        "de una excelente comida casera con butifarra blanca y negra y munxetes del Montseny.", 250, 5,
                         "Montaña, bicicleta, excursión larga.", "https://cdn2.civitatis.com/espana/viladrau/tour-bicicleta-electrica-parque-montseny-grid.jpg"),
 
                 new Experience("Descubre la Barcelona Modernista de noche", "La mejor forma de descubrir las maravillas modernistas que se esconden en el barcelonés distrito del Eixample",
                         "Desplazarse a pie es una de las mejores formas de descubrir las maravillas modernistas que se esconden en el barcelonés distrito del Eixample, " +
-                        "ubicado en el centro de la ciudad. " +
-                        "En esta excursión de cuatro horas, descubriremos los principales emblemas del modernismo y visitaremos los templos y " +
-                        "edificios más célebres del arquitecto Gaudí. \n" +
-                        "El tour incluye visita guiada al interior de la Casa Batlló y la Sagrada Familia, así como parada para cenar en el restaurante típico " +
-                        "catalán Can Masiá, donde disfrutaremos de las mejores carnes de la región acompañadas de vinos de las tierras del Baix Empordá. El restaurante también ofrece opciones vegetarianas y veganas así como menú " +
-                        "para niños. Cava aparte. \n",200, 4, "Ciudad, a pie, excursión larga", "https://media.tacdn.com/media/attractions-splice-spp-674x446/09/57/77/a3.jpg")
+                                "ubicado en el centro de la ciudad. " +
+                                "En esta excursión de cuatro horas, descubriremos los principales emblemas del modernismo y visitaremos los templos y " +
+                                "edificios más célebres del arquitecto Gaudí. \n" +
+                                "El tour incluye visita guiada al interior de la Casa Batlló y la Sagrada Familia, así como parada para cenar en el restaurante típico " +
+                                "catalán Can Masiá, donde disfrutaremos de las mejores carnes de la región acompañadas de vinos de las tierras del Baix Empordá. El restaurante también ofrece opciones vegetarianas y veganas así como menú " +
+                                "para niños. Cava aparte. \n", 200, 4, "Ciudad, a pie, excursión larga", "https://media.tacdn.com/media/attractions-splice-spp-674x446/09/57/77/a3.jpg")
         );
 
         experienceRepository.saveAll(experiences);
@@ -84,59 +86,45 @@ class Bftp2EconotravelServerApplicationTests {
     }
 
     @Test
-    void allowsToCreateANewExperience() throws Exception {
-        mockMvc.perform(post("/new")
-                        .param("name", "Paseo en bicicleta por el Montseny")
-                        .param("price", String.valueOf(250))
-                        .param("time", String.valueOf(5))
-                        .param("category", "Montaña, bicicleta, excursión larga")
-                        .param("imageUrl", "")
+    void allowsToEditAnExperience() throws Exception {
+        Experience experience = experienceRepository.save(new Experience("Descubre la costa en barco de vela", "../img/barcoDeVela.png", "Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona. Una escapada veraniega apta incluso para los días más calurosos del año. " +
+                "Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la " +
+                "embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, " +
+                "pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos.",
+                280,
+                5,
+                "Actividad disponible para todas las edades. Pasarela para silla de ruedas disponible bajo reserva.",
+                "Playa, barco, excursión larga."));
 
-                )
-                .andExpect(status().is(200));
+        mockMvc.perform(put("/api/experiences/")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"id\": \"" + experience.getId() + "\", \"name\": \"Descubre la costa de Barcelona\"," + " \"image\": \"../img/montseny.png\"," +
+                        " \"descripcion\": \"Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona\"," +
+                        "\"price\": 200," +
+                        "\"time\": \"2h\"," +
+                        "\"category\": \"Excursión larga\"}")
+        ).andExpect(status().isOk());
 
-        List<Experience> existingExperiences = (List<Experience>) experienceRepository.findAll();
-        assertThat(existingExperiences, contains(allOf(
-                hasProperty("name", equalTo("Paseo en bicicleta por el Montseny")),
-                hasProperty("price", equalTo(250)),
-                hasProperty("time", equalTo(5)),
-                hasProperty("category", equalTo("Montaña, bicicleta, excursión larga")),
-                hasProperty("imageUrl", equalTo(""))
-        )));
+
+        List<Experience> experiences = experienceRepository.findAll();
+
+        assertThat(experiences, hasSize(1));
+        assertThat(experiences.get(0).getName(), equalTo("Descubre la costa de Barcelona"));
+        assertThat(experiences.get(0).getImgUrl(), equalTo("../img/montseny.png"));
+        assertThat(experiences.get(0).getDescripcion(), equalTo("Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona"));
+        assertThat(experiences.get(0).getPrice(), equalTo(200.0));
+        assertThat(experiences.get(0).getTime(), equalTo("2h"));
+        assertThat(experiences.get(0).getCategory(), equalTo("Excursión larga"));
+
+
     }
 
     @Test
-    void allowsToEditExistentExperience() throws Exception {
-        mockMvc.perform(post("/api/experiences/edit")
-                        .param("name", "Paseo en bicicleta por el Montseny")
-                        .param("price", String.valueOf(250))
-                        .param("time", String.valueOf(5))
-                        .param("category", "Montaña, bicicleta, excursión larga")
-                        .param("imageUrl", "https://cdn2.civitatis.com/espana/viladrau/tour-bicicleta-electrica-parque-montseny-grid.jpg")
-
-                )
+    void allowsToDeleteAnExperience() throws Exception {
+        Experience experience = experienceRepository.save(new Experience("Descubre la costa en barco de vela", "paseo acuático en barco de vela por la increíble costa de Barcelona", "Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona. Una escapada veraniega apta incluso para los días más calurosos del año. Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos.", 280, 5, "Actividad disponible para todas las edades. Pasarela para silla de ruedas disponible bajo reserva.", ""));
+        mockMvc.perform(delete("/api/experiences/" + experience.getId()))
                 .andExpect(status().is(200));
 
-        List<Experience> existingExperiences = (List<Experience>) experienceRepository.findAll();
-        assertThat(existingExperiences, contains(allOf(
-                hasProperty("name", equalTo("Paseo en bicicleta por el Montseny")),
-                hasProperty("price", equalTo(250)),
-                hasProperty("time", equalTo(5)),
-                hasProperty("category", equalTo("Montaña, bicicleta, excursión larga")),
-                hasProperty("imageUrl", equalTo("https://cdn2.civitatis.com/espana/viladrau/tour-bicicleta-electrica-parque-montseny-grid.jpg"))
-        )));
+        assertThat(experienceRepository.findById(experience.getId()), equalTo(Optional.empty()));
     }
-
-    @Test
-    void allowsToDeleteAExperience() throws Exception {
-            Experience experience = experienceRepository.save(new Experience());
-            mockMvc.perform(get("/experiences/delete/" + experience.getId()))
-                    .andExpect(status().is3xxRedirection())
-                    .andExpect(redirectedUrl("/experiences"));
-
-            assertThat(experienceRepository.findById(experience.getId()), equalTo(Optional.empty()));
-        }
-    }
-
-
 }

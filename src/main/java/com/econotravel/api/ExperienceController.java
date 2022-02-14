@@ -29,5 +29,16 @@ public class ExperienceController {
         return experienceRepository.save(experience);
     }
 
+    @PutMapping("/{id}")
+    public Experience updateExperienceById(@RequestBody Experience experience) {
+        experienceRepository.findById(experience.getId());
+        return experienceRepository.save(experience);
+    }
 
+    @DeleteMapping("/{id}")
+    public Experience deleteExperienceById(@PathVariable Long id) {
+        Experience experience = experienceRepository.findById(id).get();
+        experienceRepository.deleteById(id);
+        return experience;
+    }
 }
