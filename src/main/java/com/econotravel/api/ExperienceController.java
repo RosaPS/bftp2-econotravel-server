@@ -20,7 +20,6 @@ public class ExperienceController {
 
     @GetMapping
     public List<Experience> allExperiences() {
-
         return experienceRepository.findAll();
     }
 
@@ -29,11 +28,17 @@ public class ExperienceController {
         return experienceRepository.save(experience);
     }
 
+    @GetMapping("/{id}")
+    public Experience findExperience(@PathVariable Long id){
+        return experienceRepository.findById(id).get();
+    }
+
     @PutMapping("/{id}")
     public Experience updateExperienceById(@RequestBody Experience experience) {
         experienceRepository.findById(experience.getId());
         return experienceRepository.save(experience);
     }
+
 
     @DeleteMapping("/{id}")
     public Experience deleteExperienceById(@PathVariable Long id) {
