@@ -100,7 +100,7 @@ class Bftp2EconotravelServerApplicationTests {
 
         mockMvc.perform(put("/api/experiences/" + experience.getId())
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\": " + experience.getId() + ", \"name\": \"Descubre la costa de Barcelona\"," + " \"imgUrl\": \"https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Festaticos-cdn.elperiodico.com%2Fclip%2F6b4edfb8-9dfd-4141-9a5b-0f9af229b295_16-9-aspect-ratio_default_0.jpg\"," +
+                .content("{\"id\": experience.getId()" + ", \"name\": \"Descubre la costa de Barcelona\"," + " \"imgUrl\": \"https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Festaticos-cdn.elperiodico.com%2Fclip%2F6b4edfb8-9dfd-4141-9a5b-0f9af229b295_16-9-aspect-ratio_default_0.jpg\"," +
                         " \"descripcionCorta\": \"Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona\"," +
                         " \"descripcion\": \"Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la " +
                                 "embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, " +
