@@ -30,20 +30,20 @@ public class ExperienceController {
 
     @GetMapping("/{id}")
     public Experience findExperience(@PathVariable Long id){
-        return experienceRepository.findById(id).get();
+        return experienceRepository.findById(id).orElseThrow(null);
     }
 
-    @PutMapping("/edit/{id}")
-    public Experience updateExperienceById(@RequestBody Experience experience) {
-        experienceRepository.findById(experience.getId());
+    @PutMapping("/{id}")
+    public Experience updateExperienceById(@RequestBody Experience experience, @PathVariable Long id ) {
+        experienceRepository.findById(id);
         return experienceRepository.save(experience);
     }
 
 
-    @DeleteMapping("/delete/{id}")
+    /*@DeleteMapping("/delete/{id}")
     public Experience deleteExperienceById(@PathVariable Long id) {
-        Experience experience = experienceRepository.findById(id).get();
+        Experience experience = experienceRepository.findById(id);
         experienceRepository.deleteById(id);
         return experience;
-    }
+    }*/
 }

@@ -124,18 +124,7 @@ public class Experience implements Serializable{
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Experience experience = (Experience) o;
-        return Double.compare(experience.price, price) == 0 && Objects.equals(id, experience.id) && Objects.equals(name, experience.name)  && Objects.equals(descripcionCorta, experience.descripcionCorta) && Objects.equals(descripcion, experience.descripcion) && Objects.equals(category, experience.category) && Objects.equals(time, experience.time) && Objects.equals(imgUrl, experience.imgUrl);
-    }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, descripcionCorta, descripcion, category, time, price, imgUrl);
-    }
 
 
 
