@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/experiences")
@@ -40,10 +41,10 @@ public class ExperienceController {
     }
 
 
-    /*@DeleteMapping("/delete/{id}")
-    public Experience deleteExperienceById(@PathVariable Long id) {
-        Experience experience = experienceRepository.findById(id);
+    @DeleteMapping("/delete/{id}")
+    public Optional<Experience> deleteExperienceById(@PathVariable Long id) {
+        Optional<Experience> experience = experienceRepository.findById(id);
         experienceRepository.deleteById(id);
         return experience;
-    }*/
+    }
 }
