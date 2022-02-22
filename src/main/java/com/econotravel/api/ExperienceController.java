@@ -1,6 +1,7 @@
 package com.econotravel.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,9 +36,11 @@ public class ExperienceController {
     }
 
     @GetMapping("/edit/{id}")
-    public Experience updateExperienceById(@RequestBody Experience experience){
-        experienceRepository.findById(experience.getId());
-        return experienceRepository.save(experience);
+    public Experience updateExperienceById(Model model, @PathVariable Long id){
+        Experience experience1 = experienceRepository.findById(id).get();
+        model.addAttribute("experience", experience1);
+        model.addAttribute("name", "Edit experience");
+        return experienceRepository.save(experience1);
     }
 
 
