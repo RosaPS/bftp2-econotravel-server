@@ -78,7 +78,7 @@ class Bftp2EconotravelServerApplicationTests {
     @Test
     void createsNewExperiences() throws Exception {
 
-        mockMvc.perform(post("/api/experiences")
+        mockMvc.perform(post("/api/experiences/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\": \"Paseo en bicicleta por el Montseny\"}")
         ).andExpect(status().is(200));
@@ -102,16 +102,17 @@ class Bftp2EconotravelServerApplicationTests {
                 "Playa, barco, excursión larga.",
                 "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Festaticos-cdn.elperiodico.com%2Fclip%2F6b4edfb8-9dfd-4141-9a5b-0f9af229b295_16-9-aspect-ratio_default_0.jpg"));
 
-        mockMvc.perform(put("/api/experiences/" + experience.getId())
+        mockMvc.perform(put("/api/experiences/edit")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"id\": \"" + experience.getId() + "\", \"name\": \"Descubre la costa en barco de vela\"," + " \"imgUrl\": \"https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Festaticos-cdn.elperiodico.com%2Fclip%2F6b4edfb8-9dfd-4141-9a5b-0f9af229b295_16-9-aspect-ratio_default_0.jpg\"," +
+                .content("{\"id\": \"" + experience.getId() + "\", \"name\": \"Descubre la costa en barco de vela\"," +
                         " \"descripcionCorta\": \"Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona\"," +
-                        " \"descripcion\": \"Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la " +
+                            " \"descripcion\": \"Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona.Una escapada veraniega apta incluso para los días más calurosos del año." +"Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la" +
                         "embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, " +
-                        "pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos." +
+                        "pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos. \n," +
                         "\"price\": 200," +
                         "\"time\": \"2\"," +
-                        "\"category\": \"Playa, barco, excursión larga.\"}")
+                        "\"category\": \"Playa, barco, excursión larga.\"," +
+                        "\"imgUrl\": \"https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Festaticos-cdn.elperiodico.com%2Fclip%2F6b4edfb8-9dfd-4141-9a5b-0f9af229b295_16-9-aspect-ratio_default_0.jpg\"," )
         ).andExpect(status().isOk());
 
 
@@ -120,9 +121,9 @@ class Bftp2EconotravelServerApplicationTests {
         assertThat(experiences, hasSize(1));
         assertThat(experiences.get(0).getName(), equalTo("Descubre la costa en barco de vela"));
         assertThat(experiences.get(0).getDescripcionCorta(), equalTo("Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona"));
-        assertThat(experiences.get(0).getDescripcion(), equalTo("Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la \" +\n" +
-                "                                \"embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, \" +\n" +
-                "                                \"pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos.\" +"));
+        assertThat(experiences.get(0).getDescripcion(), equalTo("Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona. Una escapada veraniega apta incluso para los días más calurosos del año. " +"Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la" +
+                "                                embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo," +
+                "                                pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos."));
         assertThat(experiences.get(0).getPrice(), equalTo(200.0));
         assertThat(experiences.get(0).getTime(), equalTo(2));
         assertThat(experiences.get(0).getCategory(), equalTo("Playa, barco, excursión larga."));
@@ -132,9 +133,12 @@ class Bftp2EconotravelServerApplicationTests {
 
     @Test
     void allowsToDeleteAnExperience() throws Exception {
-        Experience experience = experienceRepository.save(new Experience("Descubre la costa en barco de vela", "paseo acuático en barco de vela por la increíble costa de Barcelona", "Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona. Una escapada veraniega apta incluso para los días más calurosos del año. Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos.", 280, 5, "Actividad disponible para todas las edades. Pasarela para silla de ruedas disponible bajo reserva.", ""));
-        mockMvc.perform(delete("/delete/" + experience.getId()))
+        Experience experience = experienceRepository.save(new Experience("Descubre la costa en barco de vela", "Paseo acuático en barco de vela por la increíble costa de Barcelona",
+                "Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona. Una escapada veraniega apta incluso para los días más calurosos del año. Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos.",
+                280, 5, "Actividad disponible para todas las edades. Pasarela para silla de ruedas disponible bajo reserva.", "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Festaticos-cdn.elperiodico.com%2Fclip%2F6b4edfb8-9dfd-4141-9a5b-0f9af229b295_16-9-aspect-ratio_default_0.jpg"));
+        mockMvc.perform(delete("/api/experiences/delete/" + experience.getId()))
                 .andExpect(status().is(200));
+
 
         assertThat(experienceRepository.findById(experience.getId()), equalTo(Optional.empty()));
     }

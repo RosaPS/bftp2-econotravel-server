@@ -10,28 +10,21 @@ public class Experience implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
     private String name;
-
     @Lob
     private String descripcionCorta;
-
     @Lob
     private String descripcion;
-
     private double price;
     private int time;
     private String category;
-
     @Lob
     private String imgUrl;
 
-    public Experience() {
+   public Experience() {
     }
 
-    public Experience( String name, String descripcionCorta, String descripcion, double price, int time, String category, String imgUrl) {
-
+    public Experience(String name, String descripcionCorta, String descripcion, double price, int time, String category, String imgUrl) {
         this.name = name;
         this.descripcionCorta = descripcionCorta;
         this.descripcion = descripcion;
@@ -39,6 +32,7 @@ public class Experience implements Serializable{
         this.time = time;
         this.category = category;
         this.imgUrl = imgUrl;
+
     }
 
 
