@@ -46,7 +46,7 @@ public class ExperienceController {
 
     @DeleteMapping("/delete/{id}")
     public Experience deleteExperienceById(@PathVariable Long id) {
-        Experience experience = experienceRepository.findById(id).get();
+        Experience experience = experienceRepository.findById(id).orElseThrow(ExperienceNotFoundException::new);
         experienceRepository.deleteById(id);
         return experience;
     }
