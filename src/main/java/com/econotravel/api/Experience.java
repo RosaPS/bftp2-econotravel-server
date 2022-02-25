@@ -11,8 +11,7 @@ public class Experience implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Lob
-    private String descripcionCorta;
+
     @Lob
     private String descripcion;
     private double price;
@@ -24,9 +23,8 @@ public class Experience implements Serializable{
    public Experience() {
     }
 
-    public Experience(String name, String descripcionCorta, String descripcion, double price, int time, String category, String imgUrl) {
+    public Experience(String name,  String descripcion, double price, int time, String category, String imgUrl) {
         this.name = name;
-        this.descripcionCorta = descripcionCorta;
         this.descripcion = descripcion;
         this.price = price;
         this.time = time;
@@ -50,14 +48,6 @@ public class Experience implements Serializable{
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getDescripcionCorta() {
-        return descripcionCorta;
-    }
-
-    public void setDescripcionCorta(String descripcionCorta) {
-        this.descripcion = descripcionCorta;
     }
 
 
@@ -109,7 +99,6 @@ public class Experience implements Serializable{
         return "Experience{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", descripcionCorta='" + descripcionCorta + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", price=" + price +
                 ", time=" + time +
@@ -124,12 +113,12 @@ public class Experience implements Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Experience that = (Experience) o;
-        return Double.compare(that.price, price) == 0 && time == that.time && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(descripcionCorta, that.descripcionCorta) && Objects.equals(descripcion, that.descripcion) && Objects.equals(category, that.category) && Objects.equals(imgUrl, that.imgUrl);
+        return Double.compare(that.price, price) == 0 && time == that.time && Objects.equals(id, that.id) && Objects.equals(name, that.name) &&  Objects.equals(descripcion, that.descripcion) && Objects.equals(category, that.category) && Objects.equals(imgUrl, that.imgUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, descripcionCorta, descripcion, price, time, category, imgUrl);
+        return Objects.hash(id, name, descripcion, price, time, category, imgUrl);
     }
 }
 

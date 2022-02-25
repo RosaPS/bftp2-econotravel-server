@@ -53,7 +53,7 @@ class Bftp2EconotravelServerApplicationTests {
 
     private void addSampleExperiences() {
         List<Experience> experiences = List.of(
-                new Experience("Paseo en bicicleta por el Montseny", "Disfruta de un hermoso paseo en bicicleta por el increíble Parque Natural del Montseny.",
+                new Experience("Paseo en bicicleta por el Montseny",
                         "Disfruta de un hermoso paseo en bicicleta por el increíble Parque Natural del Montseny. Una escapada veraniega perfecta para parejas, " +
                                 "familias y amigos que nos permitirá conocer nuevos y sorprendentes lugares. El recorrido que os proponemos comienza con una larga subida con algunos descansos, combinando " +
                                 "asfalto y pistas anchas, culminando en un mirador con magníficas vistas del Vallés y el mar. Desde aquí continuaremos la bajada combinando senderos, pistas y algún tramo de carretera " +
@@ -61,7 +61,7 @@ class Bftp2EconotravelServerApplicationTests {
                                 "de una excelente comida casera con butifarra blanca y negra y munxetes del Montseny.", 250, 5,
                         "Montaña, bicicleta, excursión larga.", "https://cdn2.civitatis.com/espana/viladrau/tour-bicicleta-electrica-parque-montseny-grid.jpg"),
 
-                new Experience("Descubre la Barcelona Modernista de noche", "La mejor forma de descubrir las maravillas modernistas que se esconden en el barcelonés distrito del Eixample",
+                new Experience("Descubre la Barcelona Modernista de noche",
                         "Desplazarse a pie es una de las mejores formas de descubrir las maravillas modernistas que se esconden en el barcelonés distrito del Eixample, " +
                                 "ubicado en el centro de la ciudad. " +
                                 "En esta excursión de cuatro horas, descubriremos los principales emblemas del modernismo y visitaremos los templos y " +
@@ -91,7 +91,7 @@ class Bftp2EconotravelServerApplicationTests {
 
     @Test
     void allowsToEditAnExperience() throws Exception {
-        Experience experience = experienceRepository.save(new Experience("Descubre la costa en barco de vela", "Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona.",
+        Experience experience = experienceRepository.save(new Experience("Descubre la costa en barco de vela",
                 "Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona. Una escapada veraniega apta incluso para los días más calurosos del año. " +
                         "Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la " +
                         "embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, " +
@@ -104,8 +104,7 @@ class Bftp2EconotravelServerApplicationTests {
         mockMvc.perform(get("/api/experiences/edit")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"id\": \"" + experience.getId() + "\", \"name\": \"Descubre la costa en barco de vela\"," +
-                        " \"descripcionCorta\": \"Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona\"," +
-                            " \"descripcion\": \"Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona.Una escapada veraniega apta incluso para los días más calurosos del año." +"Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la" +
+                        " \"descripcion\": \"Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona.Una escapada veraniega apta incluso para los días más calurosos del año." +"Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la" +
                         "embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, " +
                         "pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos. \n," +
                         "\"price\": 200," +
@@ -119,7 +118,6 @@ class Bftp2EconotravelServerApplicationTests {
 
         assertThat(experiences, hasSize(1));
         assertThat(experiences.get(0).getName(), equalTo("Descubre la costa en barco de vela"));
-        assertThat(experiences.get(0).getDescripcionCorta(), equalTo("Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona"));
         assertThat(experiences.get(0).getDescripcion(), equalTo("Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona. Una escapada veraniega apta incluso para los días más calurosos del año. " +"Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la" +
                 "                                embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo," +
                 "                                pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos."));
@@ -132,7 +130,7 @@ class Bftp2EconotravelServerApplicationTests {
 
     @Test
     void allowsToDeleteAnExperience() throws Exception {
-        Experience experience = experienceRepository.save(new Experience("Descubre la costa en barco de vela", "Paseo acuático en barco de vela por la increíble costa de Barcelona",
+        Experience experience = experienceRepository.save(new Experience("Descubre la costa en barco de vela",
                 "Disfruta de un hermoso paseo acuático en barco de vela por la increíble costa de Barcelona. Una escapada veraniega apta incluso para los días más calurosos del año. Descubre los encantadores alrededores de la ciudad de Barcelona y visita desde el mar sus más impresionantes playas y calas. Comenzaremos la excursión en el Puerto de Barcelona, desde donde partiremos hacia el norte para visitar playas como la Mar Bella, la Playa de la Mora y la Playa de los Pescadores. A bordo de la embarcación podremos disfrutar de una selección de quesos y embutidos catalanes acompañada de cava brut y zumos de frutas. Asimismo, pararemos cerca de la Playa de Montgat para realizar una actividad de buceo de superficie que nos permitirá apreciar la diversidad de la fauna marítima local y su ecosistema. Finalizaremos la excursión en el mismo puerto del que partimos.",
                 280, 5, "Actividad disponible para todas las edades. Pasarela para silla de ruedas disponible bajo reserva.", "https://slack-imgs.com/?c=1&o1=ro&url=https%3A%2F%2Festaticos-cdn.elperiodico.com%2Fclip%2F6b4edfb8-9dfd-4141-9a5b-0f9af229b295_16-9-aspect-ratio_default_0.jpg"));
         mockMvc.perform(delete("/api/experiences/delete/" + experience.getId()))
